@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -7,6 +8,7 @@ const Menu = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
   const sectionRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
@@ -175,7 +177,12 @@ const Menu = () => {
                   </p>
                   <div className="flex justify-between items-center pt-4">
                     <span className="text-2xl font-bold text-primary">{item.price}</span>
-                    <Button className="btn-ceremony text-sm">
+                    <Button
+                      className="btn-ceremony text-sm"
+                      onClick={() => {
+                        navigate(`/order?id=${item.id}`);
+                      }}
+                    >
                       Order Now
                     </Button>
                   </div>
